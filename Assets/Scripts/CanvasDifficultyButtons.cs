@@ -8,21 +8,21 @@ public class CanvasDifficultyButtons : MonoBehaviour
    
     public void Easymode()
     {
-        GameManager.gm.GameBoardSet(10,5);
+        GameManager.gm.GenerateBoard(10,5);
     
         gameObject.SetActive(false);
         gamePanel.SetActive(true);
     }
     public void Normalmode()
     {
-        GameManager.gm.GameBoardSet(15,10);
+        GameManager.gm.GenerateBoard(15,10);
         gameObject.SetActive(false);
         gamePanel.SetActive(true);
     }
 
     public void HardMode()
     {
-        GameManager.gm.GameBoardSet(20,10);
+        GameManager.gm.GenerateBoard(20,10);
         gameObject.SetActive(false);
         gamePanel.SetActive(true);
     }

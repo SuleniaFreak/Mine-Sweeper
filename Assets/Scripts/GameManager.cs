@@ -47,7 +47,7 @@ public class GameManager : MonoBehaviour
 
     #region start playing methods
     //método que diseñará el tablero en función del botón pulsado en main menu
-    public void GameBoardSet(int widthSize, int heightSize)
+    public void GenerateBoard(int widthSize, int heightSize)
     {
         width = widthSize;
         height = heightSize;
