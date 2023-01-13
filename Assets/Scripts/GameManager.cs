@@ -34,21 +34,46 @@ public class GameManager : MonoBehaviour
     ButtonScript[,] map;
     void Start()
     {
-        BombsQuantitySettings();
         gm = this;
         map = new ButtonScript[width,height];//definimos el ancho y el alto de la matriz
         die = false;
-        ButtonGenerator();
-        GenerateBombs();
-        counter = (width * height) - bombsAmount;
+  
     }
 
     void Update()
     {
         DialButton();
     }
+
+    #region start playing methods
+    //método que diseñará el tablero en función del botón pulsado en main menu
+    public void GameBoardSet(int widthSize, int heightSize)
+    {
+        width = widthSize;
+        height = heightSize;
+        BombsQuantitySettings();
+        ButtonGenerator();
+        GenerateBombs();
+    }
+    //método que genera el nº de bombas
+    public void BombsQuantitySettings()
+    {
+        bombsAmount = Random.Range(10, (width * height) / 2);
+
+        //condiciones especiales para tableros pequeños
+        if (width * height <= 50)
+        {
+            bombsAmount = 5;
+        }
+        else if (width * height > 10 && width * height < 160)
+        {
+            bombsAmount = 20;
+        }
+        counter = (width * height) - bombsAmount;
+    }
+
     //creamos los botones poniendo como límite el ancho y el alto del gamepanel 
-    private void ButtonGenerator()
+    public void ButtonGenerator()
     {
         //cojemos el componente del gridlayoutgroup para que se adapte al ancho establecido en width
         gamePanel.GetComponent<GridLayoutGroup>().constraint = GridLayoutGroup.Constraint.FixedColumnCount;
@@ -93,6 +118,9 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    #endregion
+
+    #region clicking Settings
     //método para clickar todas las casillas adyacentes que no tengan bombas de golpe
     public void ClickAround(int x, int y)
     {
@@ -226,6 +254,7 @@ public class GameManager : MonoBehaviour
         emojiFace.sprite = chooseFace[1];
     }
 
+    //método que contabiliza las casillas que quedan para ganar
     public void DecreaseCounter()
     {
         counter--;
@@ -295,23 +324,7 @@ public class GameManager : MonoBehaviour
             }
         }
     }
+    #endregion
 
 
-    //método que genera el nº de bombas
-    private void BombsQuantitySettings()
-    {
-        bombsAmount = Random.Range(10, (width * height) / 2);
-
-        //condiciones especiales para tableros pequeños
-        if (width * height <= 10)
-        {
-            bombsAmount = 1;
-        }
-        else if (width * height > 10 && width * height < 30)
-        {
-            bombsAmount = 5;
-        }
-    }
-
-    
 }
